@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @TableName("blog_article_category")
-@ApiModel(value = "ArticleCategory", description = "章-分类关联关系实体")
+@ApiModel(value = "ArticleCategory", description = "文章-分类关联关系实体")
 public class ArticleCategory {
 
     @ApiModelProperty(value = "主键id")

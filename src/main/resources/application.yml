@@ -7,3 +7,8 @@ spring:
     data-username: root
     data-password: admin
 
+jwt:
+  tokenHeader: Authorization #请求头
+  secret: mySecret #加解密使用的密钥
+  expiration: 604800 #超期限时间(60*60*24)
+  tokenHead: Bearer #负载头

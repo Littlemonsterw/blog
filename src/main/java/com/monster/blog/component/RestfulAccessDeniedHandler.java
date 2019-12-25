@@ -1,6 +1,7 @@
 package com.monster.blog.component;
 
 import cn.hutool.json.JSONUtil;
+import com.monster.blog.common.api.R;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
-        httpServletResponse.getWriter().println(JSONUtil.parse(e.getMessage()));
+        httpServletResponse.getWriter().println(JSONUtil.parse(R.forbidden(e.getMessage())));
         httpServletResponse.getWriter().flush();
     }
 }

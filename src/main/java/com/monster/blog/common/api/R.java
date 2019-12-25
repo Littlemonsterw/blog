@@ -47,18 +47,41 @@ public class R<T> implements Serializable {
         return failed(ResultCode.FAILURE);
     }
 
+    /**
+     * 参数校验失败
+     * @param <T>
+     * @return
+     */
     public static <T> R<T> validateFailed() {
         return failed(ResultCode.PARAM_VALID_ERROR);
     }
 
+    /**
+     * 参数校验失败
+     * @param msg
+     * @param <T>
+     * @return
+     */
     public static <T> R<T> validateFailed(String msg) {
         return new R<T>(ResultCode.PARAM_VALID_ERROR.getCode(), msg, null);
     }
 
+    /**
+     * 暂未登录或token已过期
+     * @param data
+     * @param <T>
+     * @return
+     */
     public static <T> R<T> unAuthorized(T data) {
         return new R<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
     }
 
+    /**
+     * 没有相关权限
+     * @param data
+     * @param <T>
+     * @return
+     */
     public static <T> R<T> forbidden(T data) {
         return new R<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }

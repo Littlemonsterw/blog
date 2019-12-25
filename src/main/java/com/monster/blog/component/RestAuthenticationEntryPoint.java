@@ -1,6 +1,7 @@
 package com.monster.blog.component;
 
 import cn.hutool.json.JSONUtil;
+import com.monster.blog.common.api.R;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
-        httpServletResponse.getWriter().println(JSONUtil.parse(e.getMessage()));
+        httpServletResponse.getWriter().println(JSONUtil.parse(R.unAuthorized(e.getMessage())));
         httpServletResponse.getWriter().flush();
     }
 }

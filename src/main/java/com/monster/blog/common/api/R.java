@@ -21,10 +21,18 @@ public class R<T> implements Serializable {
     @ApiModelProperty("承载数据")
     private T data;
 
-    protected R(int code, String msg, T data) {
+    private R(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    public static <T> R<T> data(T data) {
+        return new R<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+    }
+
+    public static <T> R<T> data(T data, String msg) {
+        return new R<T>(ResultCode.SUCCESS.getCode(), msg, data);
     }
 
     public static <T> R<T> success(T data) {

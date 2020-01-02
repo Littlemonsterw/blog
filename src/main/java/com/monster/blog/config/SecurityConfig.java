@@ -3,7 +3,9 @@ package com.monster.blog.config;
 import com.monster.blog.component.JwtAuthenticationTokenFilter;
 import com.monster.blog.component.RestAuthenticationEntryPoint;
 import com.monster.blog.component.RestfulAccessDeniedHandler;
+import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,12 +15,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.annotation.Resource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author wuhan
@@ -28,13 +29,13 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
+    @Autowired
     private UserService userService;
 
-    @Resource
+    @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    @Resource
+    @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
     @Override
@@ -60,6 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
                 .anyRequest().authenticated();
+        //禁用缓存
+        http.headers().cacheControl();
+        http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling()
+                .accessDeniedHandler(restfulAccessDeniedHandler)
+                .authenticationEntryPoint(restAuthenticationEntryPoint);
     }
 
     @Override
@@ -70,6 +77,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        return username -> {
+          User user = userService.getUsername(username);
+          if (user != null) {
+
+          }
+          throw new UsernameNotFoundException("用户名或密码错误");
+        };
     }
 
     @Bean

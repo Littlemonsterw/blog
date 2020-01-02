@@ -23,4 +23,11 @@ public interface UserService extends IService<User> {
      * @return JWT生成的token
      */
     String login(String username, String password);
+
+    /**
+     * 获取用户名
+     * @param username 用户信息
+     * @return 用户
+     */
+    User getUsername(String username);
 }

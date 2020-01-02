@@ -5,13 +5,13 @@ import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -26,7 +26,7 @@ import java.util.Objects;
 @Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {
 
-    @Resource
+    @Autowired
     private UserService userService;
 
     @Value("${jwt.tokenHead}")

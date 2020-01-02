@@ -10,6 +10,7 @@ import com.monster.blog.entity.User;
 import com.monster.blog.mapper.UserMapper;
 import com.monster.blog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +21,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
 /**
  * @author wuhan
  * @date 2019/12/31 14:12
@@ -30,13 +29,13 @@ import javax.annotation.Resource;
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Resource
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Resource
+    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Resource
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Value("${jwt.tokenHead}")
@@ -70,5 +69,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             log.warn("登陆异常:{}", e.getMessage());
         }
         return token;
+    }
+
+    @Override
+    public User getUsername(String username) {
+        return baseMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
     }
 }

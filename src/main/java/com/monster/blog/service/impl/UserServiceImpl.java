@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -52,6 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ApiException("用户名已存在！");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        this.save(user);
         return user;
     }
 

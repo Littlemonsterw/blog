@@ -3,7 +3,10 @@ package com.monster.blog.config;
 import com.monster.blog.component.JwtAuthenticationTokenFilter;
 import com.monster.blog.component.RestAuthenticationEntryPoint;
 import com.monster.blog.component.RestfulAccessDeniedHandler;
+import com.monster.blog.dto.SystemUserDetails;
+import com.monster.blog.entity.Permission;
 import com.monster.blog.entity.User;
+import com.monster.blog.service.UserRoleService;
 import com.monster.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +24,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 /**
  * @author wuhan
  * @date 2019/12/31 17:31
@@ -31,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
@@ -85,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username -> {
           User user = userService.getUsername(username);
           if (user != null) {
-
+              List<Permission> permissionList = userRoleService.getPermissionList(user.getId());
+              return new SystemUserDetails(user, permissionList);
           }
           throw new UsernameNotFoundException("用户名或密码错误");
         };

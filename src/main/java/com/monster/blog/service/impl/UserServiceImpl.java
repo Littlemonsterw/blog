@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User register(User user) {
-        user.setCreateDate(new DateTime());
+        user.setCreateTime(new DateTime());
         user.setStatus(StatusEnum.ACTIVE.getStatus());
         Integer count = baseMapper.selectCount(Wrappers.<User>lambdaQuery().eq(User::getUsername, user.getUsername()));
         if (count > 0) {

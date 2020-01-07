@@ -35,8 +35,8 @@ public class Comment {
     private String content;
 
     @ApiModelProperty(value = "评论时间")
-    private DateTime commentDate;
+    private DateTime commentTime;
 
     @ApiModelProperty(value = "更新时间")
-    private DateTime updateDate;
+    private DateTime updateTime;
 }

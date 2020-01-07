@@ -38,7 +38,7 @@ public class User {
     private String remark;
 
     @ApiModelProperty(value = "创建时间")
-    private DateTime createDate;
+    private DateTime createTime;
 
     @ApiModelProperty(value = "最后登录时间")
     private DateTime loginLastTime;

@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.monster.blog.mapper.ArticleTagMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="articleTagResultMap" type="com.monster.blog.entity.ArticleTag">
+        <id column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="tag_id" property="tagId"/>
+    </resultMap>
+
 </mapper>

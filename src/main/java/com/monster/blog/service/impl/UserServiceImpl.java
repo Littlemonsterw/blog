@@ -68,7 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            log.warn("登陆异常:{}", e.getMessage());
+            log.warn("登录异常:{}", e.getMessage());
         }
         return token;
     }

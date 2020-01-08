@@ -1,10 +1,11 @@
 package com.monster.blog.entity;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 博客文章实体
@@ -44,13 +45,13 @@ public class Article {
     private Integer commentCount;
 
     @ApiModelProperty(value = "创建时间")
-    private DateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "发布时间")
-    private DateTime publishTime;
+    private Date publishTime;
 
     @ApiModelProperty(value = "更新时间")
-    private DateTime updateTime;
+    private Date updateTime;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;

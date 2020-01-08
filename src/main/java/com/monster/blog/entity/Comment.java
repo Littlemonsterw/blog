@@ -1,10 +1,11 @@
 package com.monster.blog.entity;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 评论信息实体
@@ -35,8 +36,8 @@ public class Comment {
     private String content;
 
     @ApiModelProperty(value = "评论时间")
-    private DateTime commentTime;
+    private Date commentTime;
 
     @ApiModelProperty(value = "更新时间")
-    private DateTime updateTime;
+    private Date updateTime;
 }

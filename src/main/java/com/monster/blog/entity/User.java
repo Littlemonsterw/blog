@@ -1,10 +1,11 @@
 package com.monster.blog.entity;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * 用户实体
@@ -37,11 +38,11 @@ public class User {
     @ApiModelProperty(value = "备注")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间")
-    private DateTime createTime;
+    @ApiModelProperty(value = "创建时间", dataType = "Date")
+    private Date createTime;
 
-    @ApiModelProperty(value = "最后登录时间")
-    private DateTime loginLastTime;
+    @ApiModelProperty(value = "最后登录时间", dataType = "Date")
+    private Date loginLastTime;
 
     @ApiModelProperty(value = "启用状态: 0->禁用, 1->启用")
     private Integer status;

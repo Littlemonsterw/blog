@@ -40,10 +40,6 @@ public class AuthController {
     @PostMapping("/login")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "用户登陆", notes = "登陆验证，登陆成功返回token")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", required = true),
-            @ApiImplicitParam(name = "password", value = "用户密码", required = true)
-    })
     public R login(@RequestParam String username, @RequestParam String password) {
         String token = userService.login(username, password);
         if (Objects.isNull(token)) {

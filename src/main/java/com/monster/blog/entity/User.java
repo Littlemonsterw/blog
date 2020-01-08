@@ -38,10 +38,10 @@ public class User {
     @ApiModelProperty(value = "备注")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间", dataType = "Date")
+    @ApiModelProperty(value = "创建时间", dataType = "Date", hidden = true)
     private Date createTime;
 
-    @ApiModelProperty(value = "最后登录时间", dataType = "Date")
+    @ApiModelProperty(value = "最后登录时间", dataType = "Date", hidden = true)
     private Date loginLastTime;
 
     @ApiModelProperty(value = "启用状态: 0->禁用, 1->启用")

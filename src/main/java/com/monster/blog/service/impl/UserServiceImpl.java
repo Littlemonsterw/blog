@@ -21,6 +21,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author wuhan
  * @date 2019/12/31 14:12
@@ -43,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User register(User user) {
-        user.setCreateTime(new DateTime());
+        user.setCreateTime(new Date());
         user.setStatus(StatusEnum.ACTIVE.getStatus());
         Integer count = baseMapper.selectCount(Wrappers.<User>lambdaQuery().eq(User::getUsername, user.getUsername()));
         if (count > 0) {

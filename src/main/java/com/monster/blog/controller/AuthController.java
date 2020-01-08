@@ -21,7 +21,6 @@ import java.util.Objects;
  * @date 2019/12/26.
  */
 @RestController
-@AllArgsConstructor
 @RequestMapping("blog/")
 @Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {

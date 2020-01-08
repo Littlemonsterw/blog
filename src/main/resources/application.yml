@@ -3,20 +3,17 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/blog?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis
 mybatis-plus:
   #mapper-locations: classpath:org/springblade/**/mapper/*Mapper.xml
-  mapper-locations: classpath:mapper/*Mapper.xml
-  mybatis-plus:
-    mapper-locations: classpath:mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.monster.blog.**.entity
-  #typeEnumsPackage: com.lecent.dashboard.entity.enums
+  #typeEnumsPackage: com.monster.blog.entity.enums
   global-config:
     # 关闭MP3.0自带的banner
     banner: false

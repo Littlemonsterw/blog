@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ApiOperationSupport(order = 2)
-    @ApiOperation(value = "用户登陆", notes = "登陆验证，登陆成功返回token")
+    @ApiOperation(value = "用户登陆", notes = "登录验证，登陆成功返回token")
     public R login(@RequestParam String username, @RequestParam String password) {
         String token = userService.login(username, password);
         if (Objects.isNull(token)) {

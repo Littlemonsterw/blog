@@ -41,3 +41,5 @@ jwt:
   secret: mySecret #加解密使用的密钥
   expiration: 604800 #超期限时间(60*60*24)
 
+logging:
+    level.com.monster.blog.mapper: debug

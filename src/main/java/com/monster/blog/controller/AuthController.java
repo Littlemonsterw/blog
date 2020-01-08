@@ -4,7 +4,6 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,12 +31,14 @@ public class AuthController {
     private String tokenHead;
 
     @PostMapping("/register")
+    @ApiOperationSupport(order = 1)
     @ApiOperation(value = "用户注册", notes = "传入注册信息")
     public R<User> register(User user) {
         return R.data(userService.register(user));
     }
 
     @PostMapping("/login")
+    @ApiOperationSupport(order = 2)
     @ApiOperation(value = "用户登陆", notes = "登陆验证，登陆成功返回token")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true),

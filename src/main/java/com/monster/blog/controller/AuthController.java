@@ -56,13 +56,13 @@ public class AuthController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "获取验证码", notes = "获取注册验证码")
     public R getAuthCode(@RequestParam String telephone) {
-        return null;
+        return R.data(userService.generateAuthCode(telephone));
     }
 
     @PostMapping("/verifyAuthCode")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "判断验证码是否正确", notes = "检查验证码")
     public R verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
-        return null;
+        return R.data(userService.verifyAuthCode(telephone, authCode));
     }
 }

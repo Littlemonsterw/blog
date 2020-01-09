@@ -1,6 +1,9 @@
 package com.monster.blog.service.impl;
 
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.text.StrBuilder;
+import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author wuhan
@@ -91,11 +95,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public R generateAuthCode(String telephone) {
-        return null;
+        StrBuilder strBuilder = new StrBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6 ; i++) {
+            strBuilder.append(random.nextInt(10));
+        }
+        //验证码绑定手机号并存储到Redis
+        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, strBuilder.toString());
+        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone, AUTH_CODE_EXPIRE_SECONDS);
+        return R.success(strBuilder.toString());
     }
 
     @Override
     public R verifyAuthCode(String telephone, String authCode) {
-        return null;
+        if (ObjectUtil.isEmpty(authCode)) {
+            return R.failed("请输入验证码");
+        }
+        String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
+        boolean result = authCode.equals(realAuthCode);
+        if (result) {
+            return R.success("验证码校验成功！");
+        } else {
+            return R.failed("验证码不正确，请重新输入！");
+        }
     }
 }

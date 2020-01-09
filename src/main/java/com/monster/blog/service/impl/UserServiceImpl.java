@@ -4,10 +4,12 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.monster.blog.common.api.R;
 import com.monster.blog.common.en.StatusEnum;
 import com.monster.blog.common.utils.JwtTokenUtil;
 import com.monster.blog.entity.User;
 import com.monster.blog.mapper.UserMapper;
+import com.monster.blog.service.RedisService;
 import com.monster.blog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Value("${redis.key.prefix.authCode}")
+    private String REDIS_KEY_PREFIX_AUTH_CODE;
+
+    @Value("${redis.key.expire.authCode}")
+    private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -76,5 +87,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getUsername(String username) {
         return baseMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
+    }
+
+    @Override
+    public R generateAuthCode(String telephone) {
+        return null;
+    }
+
+    @Override
+    public R verifyAuthCode(String telephone, String authCode) {
+        return null;
     }
 }

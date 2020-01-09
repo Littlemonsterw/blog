@@ -6,10 +6,7 @@ import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +18,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("blog/")
-@Api(value = "用户授权认证", tags = "授权接口")
+@Api(value = "用户授权认证", tags = "用户登录注册管理")
 public class AuthController {
 
     @Autowired
@@ -29,6 +26,9 @@ public class AuthController {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
 
     @PostMapping("/register")
     @ApiOperationSupport(order = 1)
@@ -47,7 +47,22 @@ public class AuthController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
+        tokenMap.put("tokenHeader", tokenHeader);
         tokenMap.put("tokenHead", tokenHead);
         return R.data(tokenMap);
+    }
+
+    @GetMapping("/getAuthCode")
+    @ApiOperationSupport(order = 3)
+    @ApiOperation(value = "获取验证码", notes = "获取注册验证码")
+    public R getAuthCode(@RequestParam String telephone) {
+        return null;
+    }
+
+    @PostMapping("/verifyAuthCode")
+    @ApiOperationSupport(order = 4)
+    @ApiOperation(value = "判断验证码是否正确", notes = "检查验证码")
+    public R verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+        return null;
     }
 }

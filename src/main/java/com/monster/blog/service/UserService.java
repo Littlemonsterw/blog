@@ -1,6 +1,7 @@
 package com.monster.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 
 /**
@@ -30,4 +31,19 @@ public interface UserService extends IService<User> {
      * @return 用户
      */
     User getUsername(String username);
+
+    /**
+     * 生成验证码
+     * @param telephone 手机号码
+     * @return 验证码
+     */
+    R generateAuthCode(String telephone);
+
+    /**
+     * 判断验证码和手机号码是否匹配
+     * @param telephone 手机号码
+     * @param authCode 验证码
+     * @return result
+     */
+    R verifyAuthCode(String telephone, String authCode);
 }

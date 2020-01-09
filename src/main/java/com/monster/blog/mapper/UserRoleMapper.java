@@ -15,8 +15,8 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
 
     /**
      * 获取用户权限
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 用户权限
      */
     List<Permission> getPermissionList(@Param("userId") Long userId);
 }

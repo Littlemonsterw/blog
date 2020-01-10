@@ -1,9 +1,7 @@
 package com.monster.blog.service.impl;
 
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -116,7 +114,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (result) {
             return R.success("验证码校验成功！");
         } else {
-            return R.failed("验证码不正确，请重新输入！");
+            return R.validateFailed("验证码不正确或已过期！");
         }
     }
 }

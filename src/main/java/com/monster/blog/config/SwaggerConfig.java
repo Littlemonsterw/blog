@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Swagger2API配置
+ *
  * @author Monster
  * @date 2019/12/23.
  */
@@ -27,8 +28,13 @@ import java.util.List;
 public class SwaggerConfig {
 
     @Bean
-    public Docket createRestApi() {
+    public Docket blogDocket() {
+        return docket();
+    }
+
+    private Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Blog")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.monster.blog"))

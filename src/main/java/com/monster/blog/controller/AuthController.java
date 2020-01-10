@@ -17,8 +17,8 @@ import java.util.Objects;
  * @date 2019/12/26.
  */
 @RestController
-@RequestMapping("blog/")
-@Api(value = "用户授权认证", tags = "用户登录注册管理")
+@RequestMapping("blog/auth")
+@Api(value = "用户授权认证", tags = "用户登录注册管理接口")
 public class AuthController {
 
     @Autowired

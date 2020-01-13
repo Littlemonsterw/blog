@@ -10,6 +10,7 @@ import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author wuhan
@@ -42,7 +43,14 @@ public class UserController {
     @PostMapping("/update")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "修改用户信息", notes = "修改用户信息")
-    public R update(User user) {
+    public R update(@Valid @RequestBody User user) {
         return R.data(userService.updateById(user));
+    }
+
+    @PostMapping("/delete")
+    @ApiOperationSupport(order = 4)
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    public R delete(@RequestParam Long id) {
+        return R.data(userService.removeById(id));
     }
 }

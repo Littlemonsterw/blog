@@ -4,7 +4,6 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,22 +22,20 @@ public class AuthController {
     @Resource
     private UserService userService;
 
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
-
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-
     @PostMapping("/register")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "用户注册", notes = "传入注册信息")
-    public R<User> register(User user) {
+    public R<User> register(@RequestBody User user) {
         return R.data(userService.register(user));
     }
 
     @PostMapping("/login")
     @ApiOperationSupport(order = 2)
-    @ApiOperation(value = "用户登录", notes = "登录验证，登陆成功返回token")
+    @ApiOperation(value = "用户登录", notes = "登录验证，登录成功返回token")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", required = true)
+    })
     public R<Map<String, String>> login(@RequestParam String username, @RequestParam String password) {
         return R.data(userService.login(username, password));
     }
@@ -46,21 +43,25 @@ public class AuthController {
     @GetMapping("/refreshToken")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "刷新token", notes = "刷新token")
-    public R refreshToken(HttpServletRequest request) {
+    public R<Map<String, String>> refreshToken(HttpServletRequest request) {
         return R.success(userService.refreshToken(request));
     }
 
     @GetMapping("/getAuthCode")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "获取验证码", notes = "获取注册验证码")
-    public R getAuthCode(@RequestParam String telephone) {
+    public R<String> getAuthCode(@ApiParam(value = "手机号", required = true) @RequestParam String telephone) {
         return R.data(userService.generateAuthCode(telephone));
     }
 
     @PostMapping("/verifyAuthCode")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "判断验证码是否正确", notes = "检查验证码")
-    public R verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "telephone", value = "手机号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "authCode", value = "验证码", required = true, dataType = "String")
+    })
+    public R<R<String>> verifyAuthCode(@RequestParam String telephone, @RequestParam String authCode) {
         return R.data(userService.verifyAuthCode(telephone, authCode));
     }
 }

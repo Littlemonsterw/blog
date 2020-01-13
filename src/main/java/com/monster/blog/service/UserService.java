@@ -55,5 +55,5 @@ public interface UserService extends IService<User> {
      * @param authCode 验证码
      * @return result
      */
-    R verifyAuthCode(String telephone, String authCode);
+    R<String> verifyAuthCode(String telephone, String authCode);
 }

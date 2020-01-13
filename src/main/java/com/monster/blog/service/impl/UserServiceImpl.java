@@ -130,7 +130,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public R verifyAuthCode(String telephone, String authCode) {
+    public R<String> verifyAuthCode(String telephone, String authCode) {
         if (ObjectUtil.isEmpty(authCode)) {
             return R.failed("请输入验证码");
         }

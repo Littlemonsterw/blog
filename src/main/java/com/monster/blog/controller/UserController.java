@@ -27,6 +27,7 @@ public class UserController {
     @GetMapping("/detail")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "获取指定用户信息", notes = "根据用户名获取指定用户信息")
+    @ApiImplicitParam(name = "username", value = "用户名", required = true)
     public R<User> detail(String username) {
         User user = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
         return R.data(user);
@@ -35,6 +36,10 @@ public class UserController {
     @GetMapping("/userInfoPage")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "分页查询用户信息列表", notes = "获取用户信息列表（分页）")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页", dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示数量", dataType = "int")
+    })
     public IPage<User> userInfoPage(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return IPage.restPage(userService.list());
@@ -43,14 +48,14 @@ public class UserController {
     @PostMapping("/update")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "修改用户信息", notes = "修改用户信息")
-    public R update(@Valid @RequestBody User user) {
+    public R<Boolean> update(@Valid @RequestBody User user) {
         return R.data(userService.updateById(user));
     }
 
     @PostMapping("/delete")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "删除用户", notes = "删除用户")
-    public R delete(@RequestParam Long id) {
+    public R<Boolean> delete(@ApiParam(value = "主键id", required = true) @RequestParam Long id) {
         return R.data(userService.removeById(id));
     }
 }

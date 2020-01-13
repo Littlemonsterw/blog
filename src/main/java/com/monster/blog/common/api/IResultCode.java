@@ -10,13 +10,13 @@ public interface IResultCode extends Serializable {
 
     /**
      * 状态码
-     * @return
+     * @return code
      */
     int getCode();
 
     /**
      * 返回信息
-     * @return
+     * @return message
      */
     String getMessage();
 }

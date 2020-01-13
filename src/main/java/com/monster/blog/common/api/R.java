@@ -53,10 +53,6 @@ public class R<T> implements Serializable {
         return new R<>(ResultCode.FAILURE.getCode(), msg, null);
     }
 
-    public static <T> R<T> failed() {
-        return failed(ResultCode.FAILURE);
-    }
-
     /**
      * 参数校验失败
      * @param <T> </T>

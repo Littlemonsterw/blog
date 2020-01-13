@@ -2,6 +2,7 @@ package com.monster.blog.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageHelper;
+import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author wuhan
@@ -37,8 +37,8 @@ public class UserController {
     @GetMapping("/userInfoPage")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "分页查询用户信息列表", notes = "用户信息列表（分页）")
-    public List<User> userInfoPage(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        return userService.list();
+    public IPage<User> userInfoPage(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return IPage.restPage(userService.list());
     }
 }

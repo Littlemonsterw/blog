@@ -4,13 +4,12 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Monster
@@ -21,7 +20,7 @@ import java.util.Objects;
 @Api(value = "用户授权认证", tags = "用户登录注册管理接口")
 public class AuthController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Value("${jwt.tokenHead}")
@@ -40,16 +39,15 @@ public class AuthController {
     @PostMapping("/login")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "用户登录", notes = "登录验证，登陆成功返回token")
-    public R login(@RequestParam String username, @RequestParam String password) {
-        String token = userService.login(username, password);
-        if (Objects.isNull(token)) {
-            return R.validateFailed("用户名或密码错误！");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHeader", tokenHeader);
-        tokenMap.put("tokenHead", tokenHead);
-        return R.data(tokenMap);
+    public R<Map<String, String>> login(@RequestParam String username, @RequestParam String password) {
+        return R.data(userService.login(username, password));
+    }
+
+    @GetMapping("/refreshToken")
+    @ApiOperationSupport(order = 2)
+    @ApiOperation(value = "刷新token", notes = "刷新token")
+    public R refreshToken(HttpServletRequest request) {
+        return R.success(userService.refreshToken(request));
     }
 
     @GetMapping("/getAuthCode")

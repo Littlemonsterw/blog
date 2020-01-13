@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * @author wuhan
  * @date 2019/12/31 14:12
@@ -23,7 +26,14 @@ public interface UserService extends IService<User> {
      * @param password 用户密码
      * @return JWT生成的token
      */
-    String login(String username, String password);
+    Map<String, String> login(String username, String password);
+
+    /**
+     * 刷新token
+     * @param request request
+     * @return token
+     */
+    Map<String, String> refreshToken(HttpServletRequest request);
 
     /**
      * 获取用户名
@@ -37,7 +47,7 @@ public interface UserService extends IService<User> {
      * @param telephone 手机号码
      * @return 验证码
      */
-    R generateAuthCode(String telephone);
+    String generateAuthCode(String telephone);
 
     /**
      * 判断验证码和手机号码是否匹配

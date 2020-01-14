@@ -26,21 +26,21 @@ public class PermissionController {
     @Resource
     private PermissionService permissionService;
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "添加", notes = "添加权限")
     public R<Boolean> add(@RequestBody Permission permission) {
         return R.success(permissionService.addPermission(permission));
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改权限信息")
     public R<Boolean> update(@RequestBody Permission permission) {
         return R.success(permissionService.updateById(permission), "权限修改成功！");
     }
 
-    @RequestMapping("/remove")
+    @PostMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除权限")
     public R<Boolean> remove(@RequestParam List<Long> ids) {

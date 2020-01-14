@@ -59,4 +59,11 @@ public class UserController {
     public R<Boolean> remove(@RequestParam List<Long> ids) {
         return R.data(userService.removeByIds(ids));
     }
+
+    @PostMapping("/bindRole")
+    @ApiOperationSupport(order = 5)
+    @ApiOperation(value = "绑定角色", notes = "给用户分配角色")
+    public R<Boolean> bindRole(@RequestParam Long userId, @RequestParam List<Long> roleIds) {
+        return null;
+    }
 }

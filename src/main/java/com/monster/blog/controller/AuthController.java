@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public class AuthController {
     @PostMapping("/register")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "用户注册", notes = "传入注册信息")
-    public R<User> register(@RequestBody User user) {
+    public R<User> register(@Valid @RequestBody User user) {
         return R.data(userService.register(user));
     }
 

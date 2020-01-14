@@ -24,9 +24,6 @@ public class Role {
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @ApiModelProperty(value = "用户数量")
-    private Integer count;
-
     @ApiModelProperty(value = "启用状态: 0->禁用, 1->启用")
     private Integer status;
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author wuhan
@@ -33,14 +34,14 @@ public class UserController {
         return R.data(user);
     }
 
-    @GetMapping("/userInfoPage")
+    @GetMapping("/list")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "分页查询用户信息列表", notes = "获取用户信息列表（分页）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页", dataType = "int"),
             @ApiImplicitParam(name = "pageSize", value = "每页显示数量", dataType = "int")
     })
-    public IPage<User> userInfoPage(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
+    public IPage<User> list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return IPage.restPage(userService.list());
     }
@@ -52,10 +53,10 @@ public class UserController {
         return R.data(userService.updateById(user));
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/remove")
     @ApiOperationSupport(order = 4)
-    @ApiOperation(value = "删除用户", notes = "删除用户")
-    public R<Boolean> delete(@ApiParam(value = "主键id", required = true) @RequestParam Long id) {
-        return R.data(userService.removeById(id));
+    @ApiOperation(value = "删除用户", notes = "批量删除用户")
+    public R<Boolean> remove(@RequestParam List<Long> ids) {
+        return R.data(userService.removeByIds(ids));
     }
 }

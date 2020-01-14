@@ -48,14 +48,14 @@ public class UserController {
 
     @PostMapping("/update")
     @ApiOperationSupport(order = 3)
-    @ApiOperation(value = "修改用户信息", notes = "修改用户信息")
+    @ApiOperation(value = "修改", notes = "修改用户信息")
     public R<Boolean> update(@Valid @RequestBody User user) {
         return R.data(userService.updateById(user));
     }
 
     @PostMapping("/remove")
     @ApiOperationSupport(order = 4)
-    @ApiOperation(value = "删除用户", notes = "批量删除用户")
+    @ApiOperation(value = "删除", notes = "批量删除用户")
     public R<Boolean> remove(@RequestParam List<Long> ids) {
         return R.data(userService.removeByIds(ids));
     }

@@ -69,15 +69,4 @@ public class RoleController {
     public R<List<Permission>> getRolePermission(@RequestParam Long roleId) {
         return R.data(rolePermissionService.getRolePermission(roleId));
     }
-
-    @PostMapping("/updatePermission")
-    @ApiOperationSupport(order = 9)
-    @ApiOperation(value = "修改角色权限", notes = "修改角色权限")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "角色id", required = true),
-            @ApiImplicitParam(name = "permissionIds", value = "权限ids", required = true)
-    })
-    public R<Boolean> updatePermission(@RequestParam Long roleId, @RequestParam List<Long> permissionIds) {
-        return R.status(null);
-    }
 }

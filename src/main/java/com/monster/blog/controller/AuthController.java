@@ -45,7 +45,7 @@ public class AuthController {
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "刷新token", notes = "刷新token")
     public R<Map<String, String>> refreshToken(HttpServletRequest request) {
-        return R.success(userService.refreshToken(request));
+        return R.status(userService.refreshToken(request));
     }
 
     @GetMapping("/getAuthCode")

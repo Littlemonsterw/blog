@@ -29,6 +29,14 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
+    public static <T> R<T> status(T data) {
+        return new R<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+    }
+
+    public static <T> R<T> status(T data, String msg) {
+        return new R<>(ResultCode.SUCCESS.getCode(), msg, data);
+    }
+
     public static <T> R<T> data(T data) {
         return new R<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }

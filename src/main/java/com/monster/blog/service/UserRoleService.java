@@ -18,4 +18,12 @@ public interface UserRoleService extends IService<UserRole> {
      * @return 权限列表
      */
     List<Permission> getPermissionList(Long userId);
+
+    /**
+     * 给用户分配角色
+     * @param userId 用户id
+     * @param roleIds 角色id集合
+     * @return result
+     */
+    Boolean grantRole(Long userId, List<Long> roleIds);
 }

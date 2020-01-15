@@ -30,7 +30,7 @@ public class PermissionController {
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "添加", notes = "添加权限")
     public R<Boolean> add(@RequestBody Permission permission) {
-        return R.success(permissionService.addPermission(permission));
+        return R.status(permissionService.addPermission(permission));
     }
 
     @PostMapping("/update")

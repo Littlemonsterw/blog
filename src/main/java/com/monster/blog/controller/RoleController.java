@@ -37,7 +37,7 @@ public class RoleController {
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改角色信息")
     public R<Boolean> update(@Valid @RequestBody Role role) {
-        return R.success(roleService.updateById(role), "角色修改成功！");
+        return R.status(roleService.updateById(role), "角色修改成功！");
     }
 
     @PostMapping("/remove")

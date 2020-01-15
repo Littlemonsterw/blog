@@ -3,7 +3,9 @@ package com.monster.blog.controller;
 import com.github.pagehelper.PageHelper;
 import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
+import com.monster.blog.entity.Permission;
 import com.monster.blog.entity.Role;
+import com.monster.blog.service.RolePermissionService;
 import com.monster.blog.service.RoleService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,9 @@ public class RoleController {
 
     @Resource
     private RoleService roleService;
+
+    @Resource
+    private RolePermissionService rolePermissionService;
 
     @PostMapping("/add")
     @ApiOperationSupport(order = 1)
@@ -55,5 +60,24 @@ public class RoleController {
     public IPage<Role> list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return IPage.restPage(roleService.list());
+    }
+
+    @GetMapping("/getPermission")
+    @ApiOperationSupport(order = 8)
+    @ApiOperation(value = "获取角色的权限", notes = "获取指定角色的所有权限")
+    @ApiImplicitParam(name = "roleId", value = "角色id", required = true)
+    public R<List<Permission>> getRolePermission(@RequestParam Long roleId) {
+        return R.data(rolePermissionService.getRolePermission(roleId));
+    }
+
+    @PostMapping("/updatePermission")
+    @ApiOperationSupport(order = 9)
+    @ApiOperation(value = "修改角色权限", notes = "修改角色权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = true),
+            @ApiImplicitParam(name = "permissionIds", value = "权限ids", required = true)
+    })
+    public R<Boolean> updatePermission(@RequestParam Long roleId, @RequestParam List<Long> permissionIds) {
+        return R.status(null);
     }
 }

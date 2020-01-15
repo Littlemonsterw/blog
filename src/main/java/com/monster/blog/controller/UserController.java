@@ -101,14 +101,6 @@ public class UserController {
         return R.status(rolePermissionService.grantPermission(roleId, permissionIds));
     }
 
-    @GetMapping("/getRolePermission")
-    @ApiOperationSupport(order = 8)
-    @ApiOperation(value = "获取角色的权限", notes = "获取指定角色的所有权限")
-    @ApiImplicitParam(name = "roleId", value = "角色id", required = true)
-    public R<List<Permission>> getRolePermission(@RequestParam Long roleId) {
-        return R.data(rolePermissionService.getRolePermission(roleId));
-    }
-
     @GetMapping("/getUserPermission")
     @ApiOperationSupport(order = 9)
     @ApiOperation(value = "获取用户权限列表", notes = "获取用户权限列表")

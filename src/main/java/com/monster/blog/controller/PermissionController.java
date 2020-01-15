@@ -6,9 +6,7 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.entity.Permission;
 import com.monster.blog.entity.PermissionNode;
 import com.monster.blog.service.PermissionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiOperationSupport;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,6 +41,7 @@ public class PermissionController {
     @PostMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除权限")
+    @ApiImplicitParam(name = "permissionIds", value = "权限ids", required = true)
     public R<Boolean> remove(@RequestParam List<Long> ids) {
         return R.success(permissionService.removeByIds(ids), "权限删除成功！");
     }
@@ -50,6 +49,10 @@ public class PermissionController {
     @GetMapping("/list")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "获取权限列表", notes = "获取所有权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页", dataType = "int", defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示数量", dataType = "int", defaultValue = "5")
+    })
     public IPage<Permission> list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return IPage.restPage(permissionService.list());

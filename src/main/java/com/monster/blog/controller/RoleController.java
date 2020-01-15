@@ -5,13 +5,10 @@ import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
 import com.monster.blog.entity.Role;
 import com.monster.blog.service.RoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiOperationSupport;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -43,6 +40,7 @@ public class RoleController {
     @PostMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除角色信息")
+    @ApiImplicitParam(name = "ids", value = "角色ids", required = true)
     public R<Boolean> remove(@RequestParam List<Long> ids) {
         return R.success(roleService.removeByIds(ids), "角色删除成功！");
     }
@@ -50,6 +48,10 @@ public class RoleController {
     @GetMapping("/list")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "获取角色列表", notes = "获取所有角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页", dataType = "int", defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示数量", dataType = "int", defaultValue = "5")
+    })
     public IPage<Role> list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return IPage.restPage(roleService.list());

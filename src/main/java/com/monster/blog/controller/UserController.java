@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageHelper;
 import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
+import com.monster.blog.entity.Permission;
 import com.monster.blog.entity.Role;
+import com.monster.blog.entity.RolePermission;
 import com.monster.blog.entity.User;
+import com.monster.blog.service.RolePermissionService;
 import com.monster.blog.service.UserRoleService;
 import com.monster.blog.service.UserService;
 import io.swagger.annotations.*;
@@ -29,6 +32,9 @@ public class UserController {
 
     @Resource
     private UserRoleService userRoleService;
+
+    @Resource
+    private RolePermissionService rolePermissionService;
 
     @GetMapping("/detail")
     @ApiOperationSupport(order = 1)
@@ -83,6 +89,20 @@ public class UserController {
     @ApiOperationSupport(order = 7)
     @ApiOperation(value = "分配权限", notes = "给角色分配权限")
     public R<Boolean> grantPermission(@RequestParam Long roleId, @RequestParam List<Long> permissionIds) {
-        return R.status(null);
+        return R.status(rolePermissionService.grantPermission(roleId, permissionIds));
+    }
+
+    @GetMapping("/getRolePermission")
+    @ApiOperationSupport(order = 8)
+    @ApiOperation(value = "获取角色的权限", notes = "获取指定角色的所有权限")
+    public R<List<Permission>> getRolePermission(@RequestParam Long roleId) {
+        return R.data(rolePermissionService.getRolePermission(roleId));
+    }
+
+    @GetMapping("/getUserPermission")
+    @ApiOperationSupport(order = 9)
+    @ApiOperation(value = "获取用户权限列表", notes = "获取用户权限列表")
+    public R<List<Permission>> getUserPermission(@RequestParam Long userId) {
+        return R.data(userRoleService.getPermissionList(userId));
     }
 }

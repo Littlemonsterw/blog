@@ -9,4 +9,12 @@
         <result column="permission_id" property="permissionId"/>
     </resultMap>
 
+    <select id="getRolePermission" resultType="com.monster.blog.entity.Permission">
+        SELECT
+        bp.*
+        FROM blog_role_permission brp
+        LEFT JOIN blog_permission bp ON brp.permission_id = bp.id
+        WHERE brp.role_id = #{roleId}
+    </select>
+
 </mapper>

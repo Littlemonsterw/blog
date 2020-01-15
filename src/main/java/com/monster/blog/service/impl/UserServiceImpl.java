@@ -91,9 +91,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (Objects.isNull(token)) {
             throw new ApiException("用户名或密码错误！");
         }
-        Map<String, String> tokenMap = new HashMap<>();
+
+        this.lambdaUpdate().set(User::getLoginLastTime, new Date()).eq(User::getUsername, username).update();
+
+        Map<String, String> tokenMap = new HashMap<>(3);
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("apiKey", tokenHead + " " + token);
+
         return tokenMap;
     }
 

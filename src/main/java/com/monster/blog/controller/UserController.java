@@ -67,10 +67,6 @@ public class UserController {
     @PostMapping("/grantRole")
     @ApiOperationSupport(order = 5)
     @ApiOperation(value = "绑定角色", notes = "给用户分配角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户id", required = true),
-            @ApiImplicitParam(name = "roleIds", value = "角色id", required = true)
-    })
     public R<Boolean> grantRole(@RequestParam Long userId, @RequestParam List<Long> roleIds) {
         return R.status(userRoleService.grantRole(userId, roleIds));
     }

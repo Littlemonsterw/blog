@@ -29,22 +29,22 @@ public class RoleController {
     @PostMapping("/add")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "添加", notes = "添加角色信息")
-    public R<Boolean> add(@Valid @RequestBody Role role) {
+    public R<Boolean> add(Role role) {
         return R.success(roleService.addRole(role), "角色创建成功！");
     }
 
     @PostMapping("/update")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改角色信息")
-    public R<Boolean> update(@Valid @RequestBody Role role) {
-        return R.status(roleService.updateById(role), "角色修改成功！");
+    public R<Boolean> update(Role role) {
+        return R.status(roleService.updateById(role));
     }
 
     @PostMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除角色信息")
     public R<Boolean> remove(@RequestParam List<Long> ids) {
-        return R.success(roleService.removeByIds(ids), "角色删除删除成功！");
+        return R.success(roleService.removeByIds(ids), "角色删除成功！");
     }
 
     @GetMapping("/list")

@@ -26,7 +26,7 @@ public class AuthController {
     @PostMapping("/register")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "用户注册", notes = "传入注册信息")
-    public R<User> register(@Valid @RequestBody User user) {
+    public R<User> register(@Valid User user) {
         return R.data(userService.register(user));
     }
 

@@ -29,14 +29,14 @@ public class PermissionController {
     @PostMapping("/add")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "添加", notes = "添加权限")
-    public R<Boolean> add(@RequestBody Permission permission) {
+    public R<Boolean> add(Permission permission) {
         return R.status(permissionService.addPermission(permission));
     }
 
     @PostMapping("/update")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改权限信息")
-    public R<Boolean> update(@RequestBody Permission permission) {
+    public R<Boolean> update(Permission permission) {
         return R.success(permissionService.updateById(permission), "权限修改成功！");
     }
 

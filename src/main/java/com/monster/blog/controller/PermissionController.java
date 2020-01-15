@@ -37,7 +37,7 @@ public class PermissionController {
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改权限信息")
     public R<Boolean> update(Permission permission) {
-        return R.success(permissionService.updateById(permission), "权限修改成功！");
+        return R.status(permissionService.updateById(permission));
     }
 
     @PostMapping("/remove")

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageHelper;
 import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
+import com.monster.blog.entity.Role;
 import com.monster.blog.entity.User;
 import com.monster.blog.service.UserRoleService;
 import com.monster.blog.service.UserService;
@@ -31,7 +32,7 @@ public class UserController {
 
     @GetMapping("/detail")
     @ApiOperationSupport(order = 1)
-    @ApiOperation(value = "获取指定用户信息", notes = "根据用户名获取指定用户信息")
+    @ApiOperation(value = "获取用户信息", notes = "根据用户名获取指定用户信息")
     @ApiImplicitParam(name = "username", value = "用户名", required = true)
     public R<User> detail(String username) {
         User user = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
@@ -66,8 +67,22 @@ public class UserController {
 
     @PostMapping("/grantRole")
     @ApiOperationSupport(order = 5)
-    @ApiOperation(value = "绑定角色", notes = "给用户分配角色")
+    @ApiOperation(value = "分配角色", notes = "给用户分配角色")
     public R<Boolean> grantRole(@RequestParam Long userId, @RequestParam List<Long> roleIds) {
         return R.status(userRoleService.grantRole(userId, roleIds));
+    }
+
+    @GetMapping("/getUserRole")
+    @ApiOperationSupport(order = 6)
+    @ApiOperation(value = "获取用户的角色", notes = "获取指定用户的角色信息")
+    public R<List<Role>> getUserRole(@RequestParam Long userId) {
+        return R.data(userRoleService.getUserRole(userId));
+    }
+
+    @PostMapping("/grantPermission")
+    @ApiOperationSupport(order = 7)
+    @ApiOperation(value = "分配权限", notes = "给角色分配权限")
+    public R<Boolean> grantPermission(@RequestParam Long roleId, @RequestParam List<Long> permissionIds) {
+        return R.status(null);
     }
 }

@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.monster.blog.entity.Permission;
+import com.monster.blog.entity.Role;
 import com.monster.blog.entity.UserRole;
 import com.monster.blog.mapper.UserRoleMapper;
 import com.monster.blog.service.UserRoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean grantRole(Long userId, List<Long> roleIds) {
         List<UserRole> list = this.list(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
         if (CollectionUtils.isNotEmpty(list)) {
@@ -39,5 +42,10 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
         }
 
         return this.saveBatch(userRoleList);
+    }
+
+    @Override
+    public List<Role> getUserRole(Long userId) {
+        return baseMapper.getUserRole(userId);
     }
 }

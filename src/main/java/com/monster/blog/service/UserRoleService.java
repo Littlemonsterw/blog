@@ -2,6 +2,7 @@ package com.monster.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.monster.blog.entity.Permission;
+import com.monster.blog.entity.Role;
 import com.monster.blog.entity.UserRole;
 
 import java.util.List;
@@ -26,4 +27,11 @@ public interface UserRoleService extends IService<UserRole> {
      * @return result
      */
     Boolean grantRole(Long userId, List<Long> roleIds);
+
+    /**
+     * 获取指定用户的角色信息
+     * @param userId 用户id
+     * @return 用户所属角色
+     */
+    List<Role> getUserRole(Long userId);
 }

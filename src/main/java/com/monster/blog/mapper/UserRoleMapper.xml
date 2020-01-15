@@ -19,4 +19,12 @@
         WHERE
         bur.user_id = #{userId}
     </select>
+
+    <select id="getUserRole" resultType="com.monster.blog.entity.Role">
+        SELECT
+        br.*
+        FROM blog_user_role bur
+        LEFT JOIN blog_role br ON bur.role_id = br.id
+        WHERE bur.user_id = #{userId}
+    </select>
 </mapper>

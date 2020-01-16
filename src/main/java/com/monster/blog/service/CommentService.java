@@ -8,4 +8,11 @@ import com.monster.blog.entity.Comment;
  * @date 2020/1/7 15:09
  */
 public interface CommentService extends IService<Comment> {
+
+    /**
+     * 添加评论
+     * @param comment 评论信息
+     * @return comment
+     */
+    Boolean addComment(Comment comment);
 }

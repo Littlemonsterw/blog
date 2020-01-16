@@ -35,14 +35,14 @@ public class RoleController {
         return R.success(roleService.addRole(role), "角色创建成功！");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改角色信息")
     public R<Boolean> update(Role role) {
         return R.status(roleService.updateById(role));
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除角色信息")
     @ApiImplicitParam(name = "ids", value = "角色ids", required = true)

@@ -31,14 +31,14 @@ public class PermissionController {
         return R.status(permissionService.addPermission(permission));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperationSupport(order = 2)
     @ApiOperation(value = "修改", notes = "修改权限信息")
     public R<Boolean> update(Permission permission) {
         return R.status(permissionService.updateById(permission));
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("/remove")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除权限")
     @ApiImplicitParam(name = "permissionIds", value = "权限ids", required = true)

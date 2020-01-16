@@ -56,14 +56,14 @@ public class UserController {
         return IPage.restPage(userService.list());
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "修改", notes = "修改用户信息")
     public R<Boolean> update(@Valid User user) {
         return R.status(userService.updateById(user));
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("/remove")
     @ApiOperationSupport(order = 4)
     @ApiOperation(value = "删除", notes = "批量删除用户")
     @ApiImplicitParam(name = "ids", value = "用户ids", required = true)

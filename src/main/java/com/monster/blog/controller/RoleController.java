@@ -64,7 +64,7 @@ public class RoleController {
     }
 
     @GetMapping("/getPermission")
-    @ApiOperationSupport(order = 8)
+    @ApiOperationSupport(order = 5)
     @ApiOperation(value = "获取角色的权限", notes = "获取指定角色的所有权限")
     @ApiImplicitParam(name = "roleId", value = "角色id", required = true)
     public R<List<Permission>> getRolePermission(@RequestParam Long roleId) {

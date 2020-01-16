@@ -103,7 +103,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserPermission")
-    @ApiOperationSupport(order = 9)
+    @ApiOperationSupport(order = 8)
     @ApiOperation(value = "获取用户权限列表", notes = "获取用户权限列表")
     @ApiImplicitParam(name = "userId", value = "用户id", required = true)
     public R<List<Permission>> getUserPermission(@RequestParam Long userId) {

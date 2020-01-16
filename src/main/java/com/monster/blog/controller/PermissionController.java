@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog/permission")
+@ApiSort(value = 3)
 @Api(value = "权限管理", tags = "权限管理接口")
 public class PermissionController {
 

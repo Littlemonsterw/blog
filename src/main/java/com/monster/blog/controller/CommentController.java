@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author Monster
- * @date 2020/1/13.
+ * @author wuhan
+ * @date 2020/1/16 10:55
  */
 @RestController
-@RequestMapping("/blog/article")
-@ApiSort(value = 5)
-@Api(value = "文章管理", tags = "文章管理接口")
-public class ArticleController {
+@RequestMapping("/blog/comment")
+@ApiSort(value = 6)
+@Api(value = "评论管理", tags = "评论管理接口")
+public class CommentController {
 }

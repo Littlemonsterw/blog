@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("blog/auth")
+@ApiSort(value = 1)
 @Api(value = "用户授权认证", tags = "用户登录注册管理接口")
 public class AuthController {
 

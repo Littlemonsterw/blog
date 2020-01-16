@@ -19,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog/role")
+@ApiSort(value = 4)
 @Api(value = "角色管理", tags = "用户角色管理接口")
 public class RoleController {
 

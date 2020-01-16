@@ -23,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("blog/user")
+@ApiSort(value = 2)
 @Api(value = "用户基本信息", tags = "用户基本信息接口")
 public class UserController {
 

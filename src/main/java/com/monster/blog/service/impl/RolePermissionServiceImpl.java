@@ -23,7 +23,7 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionMapper,
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean grantPermission(Long roleId, List<Long> permissionIds) {
-        List<RolePermission> list = this.list(Wrappers.<RolePermission>lambdaQuery().eq(RolePermission::getRoleId, roleId));
+        List<RolePermission> list = baseMapper.selectList(Wrappers.<RolePermission>lambdaQuery().eq(RolePermission::getRoleId, roleId));
         if (CollectionUtils.isNotEmpty(list)) {
             baseMapper.delete(Wrappers.<RolePermission>lambdaQuery().eq(RolePermission::getRoleId, roleId));
         }

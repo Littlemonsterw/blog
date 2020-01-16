@@ -2,6 +2,7 @@ package com.monster.blog.controller;
 
 import com.monster.blog.common.api.R;
 import com.monster.blog.entity.Tag;
+import com.monster.blog.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
@@ -9,6 +10,8 @@ import io.swagger.annotations.ApiSort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author wuhan
@@ -19,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @ApiSort(value = 7)
 @Api(value = "标签管理", tags = "标签管理接口")
 public class TagController {
+    
+    @Resource
+    private TagService tagService;
 
     @PostMapping("/add")
     @ApiOperationSupport(order = 1)

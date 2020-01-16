@@ -22,7 +22,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public Boolean addPermission(Permission permission) {
-        int count = this.count(Wrappers.<Permission>lambdaQuery().eq(Permission::getName, permission.getName()));
+        int count = baseMapper.selectCount(Wrappers.<Permission>lambdaQuery().eq(Permission::getName, permission.getName()));
         if (count > 0) {
             throw new ApiException("权限已存在！");
         }

@@ -17,7 +17,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public Boolean addRole(Role role) {
-        int count = this.count(Wrappers.<Role>lambdaQuery().eq(Role::getName, role.getName()));
+        int count = baseMapper.selectCount(Wrappers.<Role>lambdaQuery().eq(Role::getName, role.getName()));
         if (count > 0) {
             throw new ApiException("角色已存在！");
         }

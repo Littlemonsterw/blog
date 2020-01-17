@@ -5,13 +5,12 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="commentResultMap" type="com.monster.blog.entity.Comment">
         <id column="id" property="id"/>
-        <result column="user_id" property="userId"/>
+        <result column="publish_username" property="publishUsername"/>
         <result column="article_id" property="articleId"/>
         <result column="parent_id" property="parentId"/>
         <result column="like_count" property="likeCount"/>
         <result column="content" property="content"/>
         <result column="comment_time" property="commentTime"/>
-        <result column="update_time" property="updateTime"/>
     </resultMap>
 
 </mapper>

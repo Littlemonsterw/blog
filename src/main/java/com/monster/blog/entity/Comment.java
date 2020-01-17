@@ -21,7 +21,7 @@ public class Comment {
     private Long id;
 
     @ApiModelProperty(value = "发表用户")
-    private Long userId;
+    private String publishUsername;
 
     @ApiModelProperty(value = "文章id")
     private Long articleId;
@@ -35,9 +35,6 @@ public class Comment {
     @ApiModelProperty(value = "评论内容")
     private String content;
 
-    @ApiModelProperty(value = "评论时间")
+    @ApiModelProperty(value = "评论时间", hidden = true)
     private Date commentTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
 }

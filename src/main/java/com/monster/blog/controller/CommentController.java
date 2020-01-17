@@ -29,7 +29,7 @@ public class CommentController {
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "新增", notes = "新增评论")
     public R<Boolean> add(Comment comment) {
-        return R.status(null);
+        return R.status(commentService.addComment(comment));
     }
 
     @DeleteMapping("/remove")

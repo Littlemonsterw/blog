@@ -38,4 +38,11 @@ public class CommentController {
     public R<Boolean> remove(@RequestParam List<Long> ids) {
         return R.status(commentService.removeByIds(ids));
     }
+
+    @GetMapping("/likeCount")
+    @ApiOperationSupport(order = 3)
+    @ApiOperation(value = "点赞", notes = "（增加/取消）点赞")
+    public R<Boolean> likeCount(@RequestParam Long commentId) {
+        return R.status(commentService.likeCount(commentId));
+    }
 }

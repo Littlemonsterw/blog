@@ -15,4 +15,11 @@ public interface CommentService extends IService<Comment> {
      * @return comment
      */
     Boolean addComment(Comment comment);
+
+    /**
+     * 给评论点赞/取消点赞
+     * @param commentId 评论id
+     * @return result
+     */
+    Boolean likeCount(Long commentId);
 }

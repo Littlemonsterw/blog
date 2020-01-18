@@ -20,11 +20,11 @@ public class Article {
     @ApiModelProperty(value = "主键id")
     private Long id;
 
-    @ApiModelProperty(value = "发表用户id")
-    private Long userId;
+    @ApiModelProperty(value = "发表用户")
+    private String publishUsername;
 
-    @ApiModelProperty(value = "文章分类id")
-    private Long categoryId;
+    @ApiModelProperty(value = "文章分类")
+    private String category;
 
     @ApiModelProperty(value = "标题")
     private String title;
@@ -44,13 +44,10 @@ public class Article {
     @ApiModelProperty(value = "评论总数")
     private Integer commentCount;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", hidden = true)
     private Date createTime;
 
-    @ApiModelProperty(value = "发布时间")
-    private Date publishTime;
-
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     private Date updateTime;
 
     @ApiModelProperty(value = "排序")

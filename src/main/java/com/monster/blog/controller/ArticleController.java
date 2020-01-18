@@ -30,6 +30,6 @@ public class ArticleController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "点赞", notes = "（增加/取消）点赞")
     public R<Boolean> likeCount(@RequestParam Long articleId) {
-        return R.status(null);
+        return R.status(articleService.likeCount(articleId));
     }
 }

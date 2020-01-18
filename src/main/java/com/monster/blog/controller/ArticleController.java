@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
 import com.monster.blog.entity.Article;
+import com.monster.blog.service.ArticleCategoryService;
 import com.monster.blog.service.ArticleService;
+import com.monster.blog.service.ArticleTagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
@@ -27,6 +29,12 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
+    @Resource
+    private ArticleTagService articleTagService;
+
+    @Resource
+    private ArticleCategoryService articleCategoryService;
+
     @PostMapping("/add")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "新增", notes = "发布文章")
@@ -39,6 +47,20 @@ public class ArticleController {
     @ApiOperation(value = "修改", notes = "修改文章")
     public R<Boolean> update(Article article) {
         return R.status(articleService.updateById(article));
+    }
+
+    @PutMapping("/updateTag")
+    @ApiOperationSupport(order = 2)
+    @ApiOperation(value = "修改标签", notes = "修改文章所属标签")
+    public R<Boolean> updateTag(@RequestParam Long articleId, @RequestParam List<Long> tagIds) {
+        return R.status(articleTagService.updateTag(articleId, tagIds));
+    }
+
+    @PutMapping("/updateCategory")
+    @ApiOperationSupport(order = 2)
+    @ApiOperation(value = "修改分类", notes = "修改文章所属分类")
+    public R<Boolean> updateCategory(@RequestParam Long articleId, @RequestParam Long categoryId) {
+        return R.status(articleCategoryService.updateCategory(articleId, categoryId));
     }
 
     @DeleteMapping("/remove")

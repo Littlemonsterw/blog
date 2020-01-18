@@ -45,7 +45,7 @@ public class ArticleController {
     @ApiOperationSupport(order = 3)
     @ApiOperation(value = "删除", notes = "批量删除文章")
     public R<Boolean> remove(@RequestParam List<Long> articleIds) {
-        return R.status(articleService.removeByIds(articleIds));
+        return R.status(articleService.removeArticle(articleIds));
     }
 
     @GetMapping("/list")

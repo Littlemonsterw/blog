@@ -1,17 +1,18 @@
 package com.monster.blog.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.monster.blog.common.api.IPage;
 import com.monster.blog.common.api.R;
+import com.monster.blog.entity.Article;
 import com.monster.blog.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiSort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Monster
@@ -26,8 +27,37 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
-    @GetMapping("/likeCount")
+    @PostMapping("/add")
+    @ApiOperationSupport(order = 1)
+    @ApiOperation(value = "新增", notes = "发布文章")
+    public R<Boolean> add(Article article) {
+        return R.status(null);
+    }
+
+    @PutMapping("/update")
+    @ApiOperationSupport(order = 2)
+    @ApiOperation(value = "修改", notes = "修改文章")
+    public R<Boolean> update(Article article) {
+        return R.status(articleService.updateById(article));
+    }
+
+    @DeleteMapping("/remove")
     @ApiOperationSupport(order = 3)
+    @ApiOperation(value = "删除", notes = "批量删除文章")
+    public R<Boolean> remove(@RequestParam List<Long> articleIds) {
+        return R.status(articleService.removeByIds(articleIds));
+    }
+
+    @GetMapping("/list")
+    @ApiOperationSupport(order = 4)
+    @ApiOperation(value = "获取文章列表", notes = "分页获取当前用户所有文章")
+    public IPage<Article> list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return IPage.restPage(articleService.list());
+    }
+
+    @GetMapping("/likeCount")
+    @ApiOperationSupport(order = 5)
     @ApiOperation(value = "点赞", notes = "（增加/取消）点赞")
     public R<Boolean> likeCount(@RequestParam Long articleId) {
         return R.status(articleService.likeCount(articleId));

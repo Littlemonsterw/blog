@@ -8,4 +8,11 @@ import com.monster.blog.entity.Article;
  * @date 2020/1/7 15:07
  */
 public interface ArticleService extends IService<Article> {
+
+    /**
+     * 给评论点赞/取消点赞
+     * @param articleId 评论id
+     * @return result
+     */
+    Boolean likeCount(Long articleId);
 }

@@ -48,7 +48,7 @@ public class RoleController {
     @ApiOperation(value = "删除", notes = "批量删除角色信息")
     @ApiImplicitParam(name = "ids", value = "角色ids", required = true)
     public R<Boolean> remove(@RequestParam List<Long> ids) {
-        return R.success(roleService.removeByIds(ids), "角色删除成功！");
+        return R.success(roleService.removeRole(ids), "角色删除成功！");
     }
 
     @GetMapping("/list")

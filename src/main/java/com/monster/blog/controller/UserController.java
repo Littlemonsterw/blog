@@ -69,7 +69,7 @@ public class UserController {
     @ApiOperation(value = "删除", notes = "批量删除用户")
     @ApiImplicitParam(name = "ids", value = "用户ids", required = true)
     public R<Boolean> remove(@RequestParam List<Long> ids) {
-        return R.status(userService.removeByIds(ids));
+        return R.status(userService.removeUser(ids));
     }
 
     @PostMapping("/grantRole")

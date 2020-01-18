@@ -5,6 +5,7 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +28,13 @@ public interface UserService extends IService<User> {
      * @return JWT生成的token
      */
     Map<String, String> login(String username, String password);
+
+    /**
+     * 删除用户
+     * @param userIds 用户id
+     * @return result
+     */
+    Boolean removeUser(List<Long> userIds);
 
     /**
      * 刷新token

@@ -10,8 +10,10 @@ import com.monster.blog.common.api.R;
 import com.monster.blog.common.en.StatusEnum;
 import com.monster.blog.common.utils.JwtTokenUtil;
 import com.monster.blog.entity.User;
+import com.monster.blog.entity.UserRole;
 import com.monster.blog.mapper.UserMapper;
 import com.monster.blog.service.RedisService;
+import com.monster.blog.service.UserRoleService;
 import com.monster.blog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,6 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
 
+    @Resource
+    private UserRoleService userRoleService;
+
     @Override
     public User register(User user) {
         user.setCreateTime(new Date());
@@ -100,6 +105,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         tokenMap.put("apiKey", tokenHead + " " + token);
 
         return tokenMap;
+    }
+
+    @Override
+    public Boolean removeUser(List<Long> userIds) {
+        int count = userRoleService.count(Wrappers.<UserRole>lambdaQuery().in(UserRole::getUserId, userIds));
+        if (count > 0) {
+            userRoleService.remove(Wrappers.<UserRole>lambdaQuery().in(UserRole::getUserId, userIds));
+        }
+        return this.removeByIds(userIds);
     }
 
     @Override
